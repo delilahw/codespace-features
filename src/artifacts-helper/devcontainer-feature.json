@@ -43,10 +43,16 @@
             "type": "boolean",
             "default": true,
             "description": "Create alias for rush"
+        },
+        "pythonKeyring": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install keyring authentication for pip and twine"
         }
     },
     "installsAfter": [
-        "ghcr.io/devcontainers/features/common-utils"
+        "ghcr.io/devcontainers/features/common-utils",
+        "ghcr.io/devcontainers/features/python"
     ],
     "customizations": {
         "vscode": {

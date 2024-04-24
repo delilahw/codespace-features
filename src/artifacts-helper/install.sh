@@ -10,6 +10,7 @@ ALIAS_NPM="${NPMALIAS:-"true"}"
 ALIAS_YARN="${YARNALIAS:-"true"}"
 ALIAS_NPX="${NPXALIAS:-"true"}"
 ALIAS_RUSH="${RUSHALIAS:-"true"}"
+INSTALL_PYTHON_KEYRING="${PYTHONKEYRING:-"true"}"
 
 # Source /etc/os-release to get OS info
 . /etc/os-release
@@ -136,6 +137,15 @@ if [ "${ALIAS_RUSH}" = "true" ]; then
 
     sudo -u ${_REMOTE_USER} bash -c "echo 'alias rush-pnpm=/usr/local/bin/run-rush-pnpm.sh' >> /etc/bash.bashrc || true
     sudo -u ${_REMOTE_USER} bash -c "echo 'alias rush-pnpm=/usr/local/bin/run-rush-pnpm.sh' >> /etc/zsh/zshrc || true
+fi
+
+if [ "${INSTALL_PYTHON_KEYRING}" = "true" ]; then
+    if command -v python3 >/dev/null 2>&1; then
+        echo "Installing Python keyring"
+        python3 -m pip install keyring
+    else
+        echo "Skipping Python keyring installation because python3 command was not found."
+    fi
 fi
 
 rm /tmp/install-provider.sh
