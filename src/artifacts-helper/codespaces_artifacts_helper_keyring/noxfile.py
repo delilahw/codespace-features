@@ -8,8 +8,16 @@ PYTHON_VERSIONS = ["3.8", "3.9", "3.10", "3.11", "3.12"]
 LOCATIONS = "src", "tests", "noxfile.py"
 
 
-@nox.session(py=PYTHON_VERSIONS)
-@nox.parametrize("keyring", ["20", "25.1"])
+@nox.session
+@nox.parametrize(
+    "python,keyring",
+    [
+        (python, keyring)
+        for python in PYTHON_VERSIONS
+        for keyring in ("20", "25.1")
+        if (python, keyring) != ("3.12", "20")
+    ],
+)
 def tests(session, keyring):
     session.run_always("pdm", "install", "-G", "test", external=True)
     session.install(f"keyring=={keyring}")
