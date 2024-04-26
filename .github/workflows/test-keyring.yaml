@@ -18,6 +18,7 @@ defaults:
 
 jobs:
   generate-jobs:
+    name: Generate jobs
     runs-on: ubuntu-latest
     outputs:
       session: ${{ steps.set-matrix.outputs.session }}
@@ -26,7 +27,7 @@ jobs:
 
       - uses: wntrblm/nox@main
         with:
-          python-versions: "3.11"
+          python-versions: "3.12"
 
       - id: set-matrix
         shell: bash
@@ -50,7 +51,7 @@ jobs:
       - name: Setup PDM
         uses: pdm-project/setup-pdm@v4
         with:
-          version: "2"
+          version: "^2.15.1"
           python-version-file: "src/artifacts-helper/codespaces_artifacts_helper_keyring/pyproject.toml"
 
       - name: Run ${{ matrix.session }}
