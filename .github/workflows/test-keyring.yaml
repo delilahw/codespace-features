@@ -49,9 +49,9 @@ jobs:
 
       - name: Setup PDM
         uses: pdm-project/setup-pdm@v4
-
-      - name: Install dependencies
-        run: pdm install
+        with:
+          version: "2"
+          python-version-file: "src/artifacts-helper/codespaces_artifacts_helper_keyring/pyproject.toml"
 
       - name: Run ${{ matrix.session }}
         run: pdm run nox -s "${{ matrix.session }}"
