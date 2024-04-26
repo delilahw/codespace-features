@@ -15,6 +15,7 @@ LOCATIONS = "src", "tests", "noxfile.py"
         (python, keyring)
         for python in PYTHON_VERSIONS
         for keyring in ("20", "25.1")
+        # exclude keyring 20 because it is incompatible with python 3.12
         if (python, keyring) != ("3.12", "20")
     ],
 )
