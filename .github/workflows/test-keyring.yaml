@@ -1,4 +1,4 @@
-name: CI
+name: Artifacts Helper Keyring Tests
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
 
       - id: set-matrix
         shell: bash
-        run: echo session=$(nox --json -l | jq -c '[.[].session]') | tee --append $GITHUB_OUTPUT
+        run: echo session=$(nox --json -l --tags ci | jq -c '[.[].session]') | tee --append $GITHUB_OUTPUT
 
   checks:
     name: Session ${{ matrix.session }}
@@ -56,4 +56,4 @@ jobs:
           python-version-file: "src/artifacts-helper/codespaces_artifacts_helper_keyring/pyproject.toml"
 
       - name: Run ${{ matrix.session }}
-        run: pdm run nox -s "${{ matrix.session }}"
+        run: pdm run nox --error-on-missing-interpreters --error-on-external-run -s "${{ matrix.session }}"

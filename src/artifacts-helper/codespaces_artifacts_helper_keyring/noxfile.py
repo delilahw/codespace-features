@@ -12,7 +12,7 @@ DEFAULT_TEST_LOCATION = "tests"
 LOCATIONS = ["src", DEFAULT_TEST_LOCATION, "noxfile.py"]
 
 
-@nox.session(py=DEFAULT_PYTHON_VERSION)
+@nox.session(py=DEFAULT_PYTHON_VERSION, tags=["ci"])
 def lint(session):
     """Run the linter.
 
@@ -22,15 +22,21 @@ def lint(session):
     session.run("ruff", "check", *LOCATIONS, *session.posargs)
 
 
+@nox.session(py=DEFAULT_PYTHON_VERSION, tags=["ci"])
+def format_check(session):
+    """Run the formatter and fail if issues are found."""
+    session.notify("format", posargs=["--check", *LOCATIONS])
+
+
 @nox.session(py=DEFAULT_PYTHON_VERSION)
 def format(session):
-    """Run the formatter."""
+    """Run the formatter and fix issues."""
     session.run_always("pdm", "install", "-dG", "lint", external=True)
     args = session.posargs or LOCATIONS
     session.run("ruff", "format", *args)
 
 
-@nox.session
+@nox.session(tags=["ci"])
 @nox.parametrize(
     "python,keyring",
     [
@@ -49,7 +55,7 @@ def tests(session, keyring):
     session.run("pytest", "-v", *args)
 
 
-@nox.session(py=PYTHON_VERSIONS)
+@nox.session(py=PYTHON_VERSIONS, tags=["ci"])
 def mypy(session):
     """Run the type checker."""
     session.run_always("pdm", "install", external=True)
