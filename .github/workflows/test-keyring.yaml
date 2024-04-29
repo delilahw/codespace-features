@@ -5,6 +5,7 @@ on:
     paths:
       - ".github/workflows/test-keyring.yaml"
       - "src/artifacts-helper/codespaces_artifacts_helper_keyring/**.py"
+
   pull_request:
     branches:
       - main
