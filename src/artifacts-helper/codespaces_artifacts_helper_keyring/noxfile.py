@@ -61,3 +61,12 @@ def mypy(session):
     session.run_always("pdm", "install", external=True)
     args = session.posargs or LOCATIONS
     session.run("mypy", *args)
+
+@nox.session(py=DEFAULT_PYTHON_VERSION)
+def release(session):
+    """Build the package only.
+    
+    Usually, this would also call `twine` to upload the package to PyPI, but we
+    only publish to GitHub Releases in this project. See the `release` workflow."""
+    session.run_always("pdm", "install", external=True)
+    session.run("pdm", "build", external=True)
