@@ -9,8 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    run:
-      working-directory: src/artifacts-helper/codespaces_artifacts_helper_keyring
+    defaults:
+      run:
+        working-directory: src/artifacts-helper/codespaces_artifacts_helper_keyring
 
     permissions:
       contents: write
