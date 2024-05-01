@@ -39,9 +39,13 @@ jobs:
           path: |
             src/artifacts-helper/codespaces_artifacts_helper_keyring/dist
 
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "src/artifacts-helper/codespaces_artifacts_helper_keyring/dist/codespaces_artifacts_helper_keyring-*"
-          artifactErrorsFailBuild: true
-          body: |
-            Release notes go here
+      # Additionally create a release and upload the artifacts
+      #
+      # - uses: ncipollo/release-action@v1
+      #   with:
+      #     artifacts: "src/artifacts-helper/codespaces_artifacts_helper_keyring/dist/codespaces_artifacts_helper_keyring-*"
+      #     artifactErrorsFailBuild: true
+      #     body: |
+      #       This is a release of the Codespaces Artifacts Helper Keyring.
+      #       You should not have to manually install this package; it will be installed
+      #       automatically by the Codespaces Artifacts Helper feature.
